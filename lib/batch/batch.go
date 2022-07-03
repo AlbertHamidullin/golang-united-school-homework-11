@@ -62,6 +62,39 @@ func getBatch(n int64, pool int64) []user {
 	return sRes.GetData()
 }
 
+// func getUsers(n int64, pool int64) <-chan user {
+// 	u := make(chan user, n)
+// 	var sem = make(chan struct{}, pool)
+// 	var wg sync.WaitGroup
+
+// 	for i := int64(0); i < n; i++ {
+// 		sem <- struct{}{}
+// 		wg.Add(1)
+// 		go func(sem chan struct{}, wg *sync.WaitGroup, i int64) {
+// 			defer wg.Done()
+// 			u <- getOne(i)
+// 			<-sem
+// 		}(sem, &wg, i)
+// 	}
+
+// 	close(sem)
+
+// 	wg.Wait()
+
+// 	close(u)
+// 	return u
+// }
+
+// func getBatch7(n int64, pool int64) (res []user) {
+// 	res = make([]user, 0)
+
+// 	for u := range getUsers(n, pool) {
+// 		res = append(res, u)
+// 	}
+
+// 	return res
+// }
+
 // func getBatch6(n int64, pool int64) []user {
 // 	var sem = make(chan int64, pool)
 // 	var sRes safeRes = newSafeRes()
